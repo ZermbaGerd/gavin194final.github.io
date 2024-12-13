@@ -24,3 +24,9 @@ Tried to do stuff with cloud compute, but ran into my monthly spending limit in 
 # need to figure out if the webloader can load multiple sites at once:
     # might help with dataset ethics
     # bcuz otherwise my page is functionally a plagiarism page
+
+
+Main goals of the project:
+- create an LLM that accurately creates citations
+- Research the different ways that creators of LLM's conceptualize and mitigate consequences
+- Create a corpus of sources on critical race + digital studies

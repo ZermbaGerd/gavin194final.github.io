@@ -13,6 +13,8 @@ Need these modules installed:
 The python code is largely from this tutorial:
 https://github.com/meta-llama/llama-recipes/blob/main/recipes/quickstart/RAG/hello_llama_cloud.ipynb
 
+but translated to use a local Llama model instead of the Replicate one
+
 
 
 Talk about ollama setup
@@ -22,4 +24,16 @@ and llama download process
 also include some demo videos of me using it
 
 
-articles = ["https://www.mdpi.com/2504-2289/8/11/146", "https://link.springer.com/article/10.1007/s10676-024-09792-4"]
+
+How do you prompt in a way that emphasizes collaborative learning. Make it a conversational partner and not an authoritative boss
+
+How do you load the RAG documents faster?
+
+Can I get the model to run on GUI?
+
+Maybe make a GUI where you can:
+- see whether it's running
+- upload your own articles, or turn on/off articles
+- see original article sources
+- have the actual conversation, and keep track of how long it's been thinking
+- maybe can have the reflection available too

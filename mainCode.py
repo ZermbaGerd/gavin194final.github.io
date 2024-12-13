@@ -1,41 +1,28 @@
-from getpass import getpass
-import os
-
-from langchain_community.llms import Replicate
 from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-from langchain.chains import RetrievalQA
-
+from langchain_community.llms import Ollama
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
-import bs4
 
 
-
+articles = ["https://www.mdpi.com/2504-2289/8/11/146", "https://link.springer.com/article/10.1007/s10676-024-09792-4", "https://dl.acm.org/doi/pdf/10.1145/3442188.3445922"]
 
 print("You will soon be speaking with the LLM. YOu can stop the conversation any time by typing <Done>, with the carrots included.")
 input("Press Enter to continue: ")
 print("In order to speak with the LLM, you will need to provide your Replicate API token. If you don't know what it is, check the README.txt")
 print("Input it below:")
 
-REPLICATE_API_TOKEN = getpass()
-os.environ["REPLICATE_API_TOKEN"] = REPLICATE_API_TOKEN
-
 print("Loading the model...")
 
-# Load the model
-llm = Replicate(
-    model="meta/meta-llama-3-8b",
-    model_kwargs={"temperature": 0.75, "top_p": 1, "max_tokens":500}
-)
+# Load the model - replace this with Ollama
+llm = Ollama(model="llama3.1", base_url="http://127.0.0.1:11434")
 
 print("Model loaded!")
 print("Loading our background documents")
 # load our documents
-loader = WebBaseLoader(["https://link.springer.com/article/10.1007/s10676-024-09792-4"])
+loader = WebBaseLoader(articles)
 docs = loader.load()
 
 # store those documents in a way that the model can use
@@ -64,7 +51,7 @@ while(True):
         break
 
     currentAnswer = chat_chain({"question": currentQuestion, "chat_history": chat_history})
-    
+
     print("Output:", currentAnswer['answer'])
 
     chat_history.append((currentQuestion, currentAnswer['answer']))
