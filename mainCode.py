@@ -6,26 +6,17 @@ from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 
+# This is the list of articles which the chatbot will be able to access. Having more makes it load slower, but expands its knowledge base
 
-articles = ["https://www.mdpi.com/2504-2289/8/11/146", "https://link.springer.com/article/10.1007/s10676-024-09792-4", "https://dl.acm.org/doi/pdf/10.1145/3442188.3445922"]
+#============== ARTICLES ==================#
+articles = ["https://www.mdpi.com/2504-2289/8/11/146", "https://link.springer.com/article/10.1007/s10676-024-09792-4", 
+            "https://dl.acm.org/doi/pdf/10.1145/3442188.3445922"]
+#============== ARTICLES ==================#
 
-print("You will soon be speaking with the LLM. YOu can stop the conversation any time by typing <Done>, with the carrots included.")
-input("Press Enter to continue: ")
-print("In order to speak with the LLM, you will need to provide your Replicate API token. If you don't know what it is, check the README.txt")
-print("Input it below:")
-
-print("Loading the model...")
-
-# Load the model - replace this with Ollama
-llm = Ollama(model="llama3.1", base_url="http://127.0.0.1:11434")
-
-print("Model loaded!")
-print("Loading our background documents")
-# load our documents
+# Load the articles from their URLs
 loader = WebBaseLoader(articles)
+print("Loading documents, this may take a while...")
 docs = loader.load()
-
-# store those documents in a way that the model can use
 
 # Split the document into chunks with a specified chunk size
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
@@ -33,23 +24,31 @@ all_splits = text_splitter.split_documents(docs)
 
 # Store the document into a vector store with a specific embedding model
 vectorstore = FAISS.from_documents(all_splits, HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2"))
+print("Documents loaded!")
 
-# setup conversation history
+
+#================== LLM =================#
+print("Loading the model...")
+llm = Ollama(model="llama3.1", base_url="http://127.0.0.1:11434")
+#================== LLM =================#
+print("Model loaded!")
+
+# setup conversation history with documents as filtering step
 chat_chain = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever(), return_source_documents=True)
 
-print("Documents loaded!")
 
 chat_history = []
 
-print("You are now speaking with Llama 3.1 8b")
+print("You are now speaking with Llama 3.1 8b.")
 print("======================================")
 
 while(True):
     currentQuestion = input("Input: ")
 
-    if(currentQuestion == "<Done>"):
+    if(currentQuestion.lower() in ["<Done>", "done", "no", "exit", "quit", "n", "q", "stop"]):
         break
 
+    currentPrompt = "DETAILS ABOUT HOW THE LLM SHOULD ANSWER THE PROMPT. The prompt is: " + currentQuestion
     currentAnswer = chat_chain({"question": currentQuestion, "chat_history": chat_history})
 
     print("Output:", currentAnswer['answer'])
