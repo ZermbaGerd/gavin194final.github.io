@@ -11,6 +11,10 @@ from langchain_community.document_loaders import WebBaseLoader
 #============== ARTICLES ==================#
 articles = ["https://www.mdpi.com/2504-2289/8/11/146", "https://link.springer.com/article/10.1007/s10676-024-09792-4", 
             "https://dl.acm.org/doi/pdf/10.1145/3442188.3445922"]
+
+articleNames = ["Leveraging Large Language Models for Enhancing Literature-Based Discovery", 
+                "Easy-read and large language models: on the ethical dimensions of LLM-based text simplification", 
+                "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"]
 #============== ARTICLES ==================#
 
 # Load the articles from their URLs
@@ -47,8 +51,14 @@ while(True):
 
     if(currentQuestion.lower() in ["<Done>", "done", "no", "exit", "quit", "n", "q", "stop"]):
         break
+    
+    promptPrefix = """You are a conversational chatbot interacting with a curious user. You have access to a selection of academic papers and articles from newspapers, 
+    which largely cover the topic of ethics in AI. The sources' names are as such: {}. Answer the user's following question respectfully, in a way that invites conversation and questioning.
+    If you don't know the answer to the question, or there are debates about what the correct answer is, explicitly recognize that and give examples of how a user could navigate that uncertainty.
+    The user's question is: """.format(articleNames)
 
-    currentPrompt = "DETAILS ABOUT HOW THE LLM SHOULD ANSWER THE PROMPT. The prompt is: " + currentQuestion
+    currentPrompt = promptPrefix + currentQuestion
+    print("thinking...")
     currentAnswer = chat_chain({"question": currentQuestion, "chat_history": chat_history})
 
     print("Output:", currentAnswer['answer'])

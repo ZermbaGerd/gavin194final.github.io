@@ -1,4 +1,5 @@
 [Table of contents](tableOfContents.md)
+
 What are the central problems of LLM's?
 - Carryovers from modern tech attitudes:
 	- New Jim-code
@@ -12,4 +13,4 @@ What are the central problems of LLM's?
 	- etc.
 
 
-And how do I think developers conceptualize these factors?
+And how do I think developers conceptualize these factors? For now, look to my [Reflections](reflections.md) for an answer to that...

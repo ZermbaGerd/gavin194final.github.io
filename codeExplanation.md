@@ -24,7 +24,7 @@ However you end up accessing your LLM - through cloud-compute or a local instanc
 
 ## Picking your supporting documents
 
-In the example code, I've included a few articles that the AI will draw its information from. Those articles are also listed on the website. You can add your own to this list, but it will increase the time it takes to run the model.
+In the example code, I've included a few articles that the AI will draw its information from. Those articles are also listed on the website [here](listOfSources.md). You can add your own to this list, but it will increase the time it takes to run the model.
 
 ## Picking your prompt details
 
