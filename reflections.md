@@ -1,34 +1,49 @@
 [Table of contents](tableOfContents.md)
 
-How do I understand the licenses of various resources?
+Below are some of my reflections about developing this project. They generally discuss the ways that the sources I accessed/relied on for development reflect the problematic attitudes and patterns that we've discussed in class. First, I'd like to give a quick list of what I perceive to be the largest ethical concerns surrounding LLM's.
 
-- Alternative "ethical" LLM option [here](https://www.llm360.ai/index.html)
+# Main Ethical Concerns About LLM's
 
-Stuff I've Noticed While Working Here:
+## The New Jim Code
+In 'Race After Technology', author Ruha Benjamin describes the concept of 'the New Jim Code'. Generally, this describes a cultural pattern where new technology is used to perpetuate and exacerbate existing inequalities, but it is perceived as more moral and objective than oppressive systems of the past. This hides oppression behind a veil of objectivity, allowing it to expand across various parts of society, including healthcare, government, education, and the justice system. Because these tools are perceived as moral and objective, they are exempt from ethical analysis, and are instead treated as practical problems to optimize.
 
-- webscraping:
-    "There are reasonable limits to concurrent requests, defaulting to 2 per second. If you aren't concerned about being a good citizen, or you control the server you are scraping and don't care about load, you can change the requests_per_second parameter to increase the max concurrent requests. Note, while this will speed up the scraping process, but may cause the server to block you. Be careful!"
-    from https://python.langchain.com/docs/integrations/document_loaders/web_base/
+## Labor and Compensation
+An example of the way that the new Jim Code affects LLM's comes from labor, and the many types of invisible labor that are exploited by LLM's but not compensated. This labor comes in many forms. The most obvious is data labor, where LLM's are trained on content and data that has been produced by people who did not consent to the use of their writing to train these LLM's. There are also the data cleaners and labelers, who are often paid next to nothing to manually clean datasets of incredibly toxic material. These workers often live in countries with lower quality of life and histories of colonization. The exploitation of their labor is part of a larger system of neo-colonial power dynamics that maintain the power of Western nations. Further, the laborers who build the infrastructure (internet cables, computer assembly, data centers, etc.) for modern technical developments tend to be poorer blue-collar workers whose labor is exploited for low wages. 
 
+## Unfair and Biased Datasets
+Most of the data that these tools are trained on is taken directly from public, online conversations. Because of this, the norms of online interaction are replicated in those datasets, and therefore the output of these tools. This is very important because the defining conversations happening in the United States for centuries have had racism deeply ingrained. The United States began with slavery, and racism has continued in its conversation since then. It's impossible to find a set of writing that 'reflects modern conversation' without that set of writing containing inherent racism. Placed in context of the new Jim Code, these outputs are made even more impactful because of their perception as objective and moral.
 
-Llama's documentation also had interesting things:
-- https://huggingface.co/meta-llama/Llama-3.1-8B
-- carbon impact
-- intended uses
-- considerations (ethics)
+## Data Privacy and Copyright
+Many of these tools are trained on data that they either don't have a legal right to, or have a very tenuous, undetermined legal right to. They are trained on data that people created under an implicit understand of privacy and non-competition, and are now producing results that integrate these private sources. Navigating licenses/legal rights to content and Fair Use is incredibly important for any ethical LLM.
 
+## Centralization of Power Into Tech Companies
+The technical requirements to develop, train, and use these large-language models are huge. They tend to be expensive, and require lots of incredibly powerful, highly specialized technology. The institutions that have access to this technology, and who make enough profit off of that endeavor to continue operation, tend to be large tech companies. In this way, LLM's centralize power and control of social development into the hands of relatively few companies who, because of historical social prejudices, tend to be owned and operated by rich, white, men in Silicon Valley. These tech companies tend to follow a mindset of "move fast and break things", and are focused more on immediate technological progress than on fairness, equity, or accessibility. Instead, those factors are seen as practical problems to be solved through even more technological developments, without reflection or consideration of alternate approaches.
 
-Think about dataset ethics:
-- is it okay to ignore the copyright for this small project? we do it most of the time in academia as students anyway
-- maybe there's a way to cite the sources
+## Environmental Concerns
+The carbon emissions of training and using LLM's are very large, and efforts need to be taken to recognize and limit these. Not every problem needs an LLM to solve it, and it's important to mitigate both the emissions of necessary LLM's and the application of LLM's to unncessary situations.
 
+# Reflections
 
-Questions:
-- getting data ethically (copyright + consumption vs. recreation)
-	- what data would I want?
-- ask questions about inherency to LLM flaws
-	- can we make "better" LLM's?
-- What problems are inherent to LLM's?
-- What problems are not?
-	- Data labor exploitation
-	- Electricity
+## Moving Fast and Breaking Things
+The tool I use to load my articles into the LLM is a webscraper that loads the HTML content of pages online into a form that people can use in the process of training/using large-language models. In its [documentation](https://python.langchain.com/docs/integrations/document_loaders/web_base/) there is a section about using the tool to load multiple URL's at once. In that documentation, it has a note that "If you aren't concerned about being a good citizen, or you control the server you are scraping and don't care about load, you can change the requests_per_second parameter to increase the max concurrent requests."
+
+This isn't inherently immoral, but it's a very clear example of the ways that the "move fast and break things" attitude manifests itself in the technology that tech companies produce. The documentation later says "this will speed up the scraping process, but may cause the server to block you. Be careful!" Again, this shows the emphasis on doing first, and asking for permission/dealing with consequences later. If the server you're accessing isn't "technically advanced" enough to automatically notice someone accessing all of its resources, you as a developer would get to monopolize access to that information as long as you wanted.
+
+The documentation of these tools offered other sources of reflection, too. Notably, the [documentation for the Llama LLM](https://huggingface.co/meta-llama/Llama-3.1-8B) was very interesting. First, I needed to give my contact information to Meta to be allowed to use the model, which demonstrates some of the ways that tech companies can utilize their centralized power to demand concessions from an average user. This may be for good reason, but it is still only possible because of their power. Second, the documentation detailed the estimated environmental impact of training the model, where it says that the location released 11,000 tons of CO2 into the atmosphere. However, they immediately followed that by saying that the total "market-based" impact of the emissions was 0, because Meta matches all of its emissions with an equivalent amount of investment into renewable energy. Again, this may make sense, but it's very interesting to think about the ways that the economic incentives around these circumstances manifests itself.
+
+## Developer Attitudes Towards LLM Ethics
+Interestingly, Llama's documentation had a very detailed section on the ethics of the project, especially when it comes to deploying and using the LLM. I'll talk about those in a second, but I wanted to point out that those conversations about ethics do not discuss the training data at all! The only thing that they say about their training data is that "Llama 3.1 was pretrained on ~15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 25M synthetically generated examples." Nowhere on the document do they give any examples of what the training dataset includes, nor how it was cleaned, sourced, or compensated. This matches perfectly with my analysis of the focuses that tech companies have about the ethics of these tools, where they're more focused on the impacts of __using__ these tools than on __developing__ these tools.
+
+In the section of the documentation that focuses on the ethics of using these tools, the writers mostly focus on minimizing the ways that the tool could be used to generate harmful material. They specifically call out three forms of harmful material: chemical/biological weapons, child safety, and cyber attack enablement. These are all valiant areas to focus on, but when I first read them I was confused about the absence of other sources. For instance, would it not be important to prevent it from generating material that was racist, sexist, or bigoted in some other way? In my mind, they have an obligation to prevent their tool from being used to perpetuate existing biases, especially within the context of the new Jim Code.
+
+The authors implictly answer this question later, when they write "even content that may appear problematic in some cases can serve valuable purposes in others." This is a very interesting argument! I conceptualize it by thinking about a circumstance where a researcher is using Llama to help study the prevalence of racist content in various fields or conversations. If the model automatically filtered out any results that discussed/covered/demonstrated this content, it might affect the researcher's goals. To be clear, I don't think this is a very good argument, because I personally don't think the consequences of limiting this material would outweigh the benefits, but it does deserve some deeper reflection. Another thing to think about here is what type of response we might have if Meta HAD included bigoted content in its list of harmful material. We may be asking some questions about whether Meta is the right entity to decide what material is bigoted, or be frustrated that the power to define bigotry had been put into the hands of a tech company.
+
+## Cloud-Compute and Centralized Technical Power
+Another example of the ways that my analysis popped up in my actual development process comes in regards to cloud-compute. The technical requirements to run and train large-language-models are intense (training Llama 3.1 took 390 million hours of run-time on GPU's 10x stronger than my personal computer!) I ran many of my examples on the smallest available version of the newest Meta LLM, using a fairly powerful personal computer, and even then it could take a few minutes to generate an answer. When researchers are developing these tools, they usually use supercomputers that are hundreds of times more powerful than personal computers. Developers working with LLM's often 'rent' time from those supercomputers to run their code, so that it can run in a reasonable amount of time. However, that can be a very expensive and complicated proposition.
+
+When I was first working on this project, I started by using an LLM that was being hosted online by a service called Replicate. However, within the first half-hour of usage, where I was just trying to debug my setup and never actually got results that I could interact with, I already used up my daily limit of cloud-compute time. One of the consequences of this is that I needed to use a smaller LLM in my testing, and that it had to be an LLM that could be run locally! This meant that I had to use a tool like Llama 8b, instead of a different LLM that might have more 'ethical' roots.
+
+## Alternate 'Ethical' LLM's and Accessibility
+For instance, when I was researching my options for LLM's, I came across a few alternatives that advertised themselves as more "ethical" LLM's. A collection of some of those is available [here](https://www.llm360.ai/index.html), but I'm more focused on [this](https://huggingface.co/bigscience/bloom) one, BLOOM. It is the result of a partnership between many academic researchers (including THE Shmargaret Shmitchell, minus prefixes now that she's no longer working for Google), using a supercomputer & funding provided by the French government. This LLM was an interesting counterexample to something like Llama, because its defining philosophies were openness, accessibility, and equity. However, I couldn't use it because it was too large to comfortably run on a consumer computer, wasn't popular enough to have a deep infrastructure of support and documentation yet, nor was it easily accessible through cloud-compute.
+
+There are plenty of reasons why this LLM is interesting. On the environemental end, it is run almost entirely by nuclear power, and the heat it puts off as a side-effect of running is used to [heat campus housing](https://huggingface.co/bigscience/bloom#:~:text=The%20heat%20generated%20by%20it%20is%20reused%20for%20heating%20campus%20housing) for a college in France! Its dataset is, to my best understanding, completely crowd-sourced by larger academic communities. Its code is entirely open-source, and all of the model weights and training code are available to anyone. The paper describing the model's creation can be found [here](https://arxiv.org/abs/2211.05100) and the paper describing the creation of its dataset can be found [here](https://arxiv.org/abs/2303.03915)

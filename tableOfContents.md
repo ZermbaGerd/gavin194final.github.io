@@ -2,5 +2,5 @@
 ### [README](README.md)
 ### [List of Sources](listOfSources.md)
 ### [Reflections](reflections.md)
-### [Analysis](analysis.md)
-### [Code explanation](codeExplanation.md)
+### [Code Explanation](codeExplanation.md)
+### [Example Conversations](auditOfResults.md)
